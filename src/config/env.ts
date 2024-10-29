@@ -22,4 +22,6 @@ export const ENVIRONMENT:IEnvironment = {
         API_SECRET: process.env.CLOUDINARY_CLOUD_API_SECRET!
       },
       ALLOWED_ORIGINS:process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : [],
+      JWT_SECRET:process.env.JWT_SECRET!,
+      TOKEN_EXPIRES:process.env.TOKEN_EXPIRES!
 }

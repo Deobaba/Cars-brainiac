@@ -19,5 +19,27 @@ export interface IEnvironment {
         API_KEY: string;
         API_SECRET: string;
       }
-      ALLOWED_ORIGINS:  any
+      ALLOWED_ORIGINS:  any;
+      JWT_SECRET:string;
+      TOKEN_EXPIRES:string
+}
+
+
+interface RangeFilter {
+  min?: number;
+  max?: number;
+}
+
+//  CarFilter interface
+export interface CarFilter {
+  make?: string;
+  carModel?: string;
+  year?: RangeFilter;        // Allows filtering by range
+  mileage?: RangeFilter;     // Allows filtering by range
+  price?: RangeFilter;       // Allows filtering by range
+  availability?: boolean;
+  limit?: number;
+  offset?: number;
+  sortBy?: 'price' | 'mileage' | 'year';  
+  order?: 'asc' | 'desc';      
 }

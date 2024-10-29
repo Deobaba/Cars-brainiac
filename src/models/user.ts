@@ -6,7 +6,7 @@ export interface IUser extends Document {
     email: string;
     password: string;
     phone:string;
-    usertype: 'buyers' | 'sellers'; // Define specific types
+    usertype: 'buyer' | 'seller'; // Define specific types
     createdAt?: Date;
     updatedAt?: Date;
 }
@@ -19,7 +19,7 @@ const userSchema = new Schema<IUser>({
     usertype: {
         type: String,
         required: true,
-        enum: ['buyers', 'sellers'], // Restrict to "buyers" or "sellers"
+        enum: ['buyer', 'seller'], // Restrict to "buyers" or "sellers"
     },
 }, {
     timestamps: true,

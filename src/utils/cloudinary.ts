@@ -30,7 +30,7 @@ export function removeUrlUnfriendlyCharacters(str: string): string {
 
 export function uploadSingleFileToCloudinary(file: Express.Multer.File, area: string, imageName: string): Promise<any> {
   const sanitizedImageName = removeUrlUnfriendlyCharacters(imageName);
-  const newFilename = `plutohomes_${removeUrlUnfriendlyCharacters(imageName)}_${area}_${Date.now()}`;
+  const newFilename = `carbrainiac_${removeUrlUnfriendlyCharacters(imageName)}_${area}_${Date.now()}`;
   
   return new Promise((resolve, reject) => {
     validateImage(file);

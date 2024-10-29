@@ -9,6 +9,10 @@ import compression from "compression";
 import errorHandler from "./middlewares/errorHandler";
 import lusca from "lusca";
 import { ENVIRONMENT } from "./config/env";
+import userRouter from "./route/user";
+import carRouter from "./route/car";
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './utils/swagger';
 
 
 
@@ -34,10 +38,15 @@ app.use(useCors);
 
 
 // API Routes
-
+app.use("/api/users",userRouter)
+app.use('/api/cars',carRouter)
 app.get('/', (req: Request, res: Response) => {
   res.send('Server is healthy and running');
 });
+
+
+// Swagger UI route
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Global error handling middleware
 app.use(errorHandler);
