@@ -2,9 +2,15 @@
 
 A comprehensive API project built with Node.js, Mongo, and featuring security implementations, rate-limiting,  and robust error handling. The project is also set up for automated CI/CD deployment using GitHub Actions.
 
+# deployed link 
+check service health (/)
+render - https://cars-brainiac.onrender.com
+heroku - https://carbrainiac-5e171b67476a.herokuapp.com (might be down)
+
 # Table of Contents
 
 - [Project Name](#project-name)
+- [deployed link](#deployed-link)
 - [Table of Contents](#table-of-contents)
   - [Setup and Installation](#setup-and-installation)
     - [Pre-requisites](#pre-requisites)
@@ -59,17 +65,17 @@ npm install
 Create a .env file in the root directory and provide the following values:
 
 ```
-APP_NAME=DEOBAB
-APP_ENV=development
+APP_NAME=
+APP_ENV=development | production
 PORT=4000
-MONGO_URL_DEV=mongodb://localhost:27017/cars
+MONGO_URL_DEV=<mongodb://localhost:27017/cars>
 MONGO_URL_PROD=
 ALLOWED_ORIGINS=http://localhost:4000,https://cars-brainiac.onrender.com
 JWT_SECRET=<your_jwt_secret e.g >
-TOKEN_EXPIRES=30d
-CLOUDINARY_CLOUD_NAME=
-CLOUDINARY_CLOUD_API_KEY=
-CLOUDINARY_CLOUD_API_SECRET=
+TOKEN_EXPIRES=<30d>
+CLOUDINARY_CLOUD_NAME=<dlbwktrdc>
+CLOUDINARY_CLOUD_API_KEY=<642815273652323>
+CLOUDINARY_CLOUD_API_SECRET=<fu__lJiJvHJ1g0j-MbEvhWbgUyA>
 ```
 
 1. Start the Server
@@ -89,13 +95,13 @@ npm run test
 
 ## API Endpoints
 
-| HTTP Method | Endpoint                        | Description                                             |
-| ----------- | ------------------------------- | ------------------------------------------------------- |
-| POST        | /api/users/create               | Create a new user                                       |
-| POST        | /api/users/login                | login in user                                           |
-| POST        | /api/car  [Protected-seller]    | post a new car by seller                                |
-| GET         | /api/car[Protected-seller&buyer]| Retrieve all posts for a user                           |
-| POST   | /api/car/:id [Protected-seller&buyer]| Add a comment to a post                                 |
+| HTTP Method | Endpoint                            | Description                                             |
+| ----------- | ------------------------------------| ------------------------------------------------------- |
+| POST        | /api/users/create                   | Create a new user                                       |
+| POST        | /api/users/login                    | login in user                                           |
+| POST        | /api/car  [Protected-seller]        | post a new car by seller                                |
+| GET         | /api/car[Protected-seller&buyer]    | Retrieve all posts for a user                           |
+| POST        | /api/car/:id[Protected-seller&buyer]| Add a comment to a post                                 |
 
 # Database diagram
 
@@ -108,7 +114,7 @@ npm run test
 
 ### 1. CORS
 
-The API is restricted to specific domains via CORS middleware. The allowed origins can be configured through environment variables for flexibility.(add your local url or deployed url )
+The API is restricted to specific domains via CORS middleware. The allowed origins can be configured through environment variables for flexibility.(add your local url or deployed url to ALLOWED_ORIGINS )
 
 ### 2. Rate Limiting
 
