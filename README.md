@@ -4,18 +4,29 @@ A comprehensive API project built with Node.js, Mongo, and featuring security im
 
 # Table of Contents
 
-1. [Setup and Installation](#setup-and-installation)
-2. [Pre-requisites](#pre-requisites)
-3. [Step-by-Step Guide](#step-by-step-guide)
-4. [API Endpoints](#api-endpoints)
-5. [Security Implementations](#security-implementations)
-6. [Error Handling](#error-handling)
-7. [Deployment](#deployment)
-   - [Dockerized Deployment to Heroku](#dockerized-deployment-to-heroku)
-   - [CI/CD with GitHub Actions](#ci-cd-with-github-actions)
-8. [Testing](#testing)
-   - [Unit Tests](#unit-tests)
-9. [Conclusion](#conclusion)
+- [Project Name](#project-name)
+- [Table of Contents](#table-of-contents)
+  - [Setup and Installation](#setup-and-installation)
+    - [Pre-requisites](#pre-requisites)
+    - [Step-by-Step Guide](#step-by-step-guide)
+      - [1. Clone the Repository](#1-clone-the-repository)
+      - [2. Install Dependencies](#2-install-dependencies)
+    - [3. Set Up Environment Variables](#3-set-up-environment-variables)
+  - [API Endpoints](#api-endpoints)
+- [Database diagram](#database-diagram)
+- [Security Implementations](#security-implementations)
+    - [1. CORS](#1-cors)
+    - [2. Rate Limiting](#2-rate-limiting)
+    - [3. Helmet](#3-helmet)
+- [Error Handling](#error-handling)
+- [Deploying to Heroku with GitHub Actions](#deploying-to-heroku-with-github-actions)
+  - [Prerequisites](#prerequisites)
+  - [Deployment Workflow](#deployment-workflow)
+    - [Workflow Overview](#workflow-overview)
+- [Test and Deploy to Heroku Workflow](#test-and-deploy-to-heroku-workflow)
+  - [Workflow Overview](#workflow-overview-1)
+  - [Summary](#summary)
+- [Swagger Documentation](#swagger-documentation)
 
 ## Setup and Installation
 
@@ -118,57 +129,47 @@ This repository is configured with a GitHub Actions workflow that automatically 
 
 The deployment workflow performs the following steps:
 
-## RUN THE TEST.YAML WORKFLOW
+# Test and Deploy to Heroku Workflow
 
-1. **Checkout Repository Code:** Uses the `actions/checkout@v4` action to check out the repository’s code.
-2. **Set up Node.js:** Uses `actions/setup-node@v3` to install and configure Node.js, specifying version 20 in the workflow.
-3. **Cache Dependencies:** Uses `actions/cache@v2` to cache `npm` dependencies based on the `package-lock.json` file. This helps to speed up future runs by avoiding redundant installs.
-4. **Install Dependencies:**  
-   Runs `npm install` to install the necessary packages and dependencies for the project.
-5. **Run Tests:** Executes the test suite using `npm test`, which runs all the unit or integration tests defined in the project.
+This GitHub Actions workflow automates the process of testing and deploying a Node.js application to Heroku whenever there is a push to the `main` branch.
 
-## RUN THE DEPLOY.YAML WORKFLOW
+## Workflow Overview
 
-- This workflow will be triggered only after the test workflow completes successfully.
+1. **Trigger:**  
+   The workflow is triggered on a push event to the `main` branch.
 
-1. **Checkout Code:** The GitHub Action checks out the repository's code.
-2. **Install Heroku CLI:** Installs the Heroku CLI, necessary for pushing and releasing the Docker container.
-3. **Log In to Heroku:** Authenticates with Heroku using the `HEROKU_API_KEY` secret.
-4. **Build Docker Image:** Builds the Docker image for the application.
-5. **Push Image to Heroku:** Pushes the built image to the Heroku Container Registry.
-6. **Release Image on Heroku:** Releases the Docker image, making the application live.
+2. **Job:**  
+   The workflow contains a single job named `test-and-deploy`, which runs on the latest version of Ubuntu.
 
-### Setting Up Heroku and GitHub
+3. **Steps:**
 
-#### Step 1: Create a Heroku Application
+   - **Checkout Code:**  
+     Utilizes the `actions/checkout@v2` action to check out the repository's code. This step ensures that the latest version of the code is available for subsequent steps.
 
-1. Log in to [Heroku](https://dashboard.heroku.com).
-2. Create a new application by clicking the "New" button and selecting "Create new app".
-3. Make note of the app name (you'll need it later).
+   - **Set up Node.js:**  
+     Uses `actions/setup-node@v2` to install and configure Node.js, specifying version 16. This ensures that the workflow runs in an environment that matches the project’s requirements.
 
+   - **Install Dependencies:**  
+     Runs `npm install` to install all necessary packages and dependencies for the project. This step is crucial for ensuring that the application can run and tests can be executed.
 
-#### Step 3: Add Config Vars to Heroku
+   - **Run Tests:**  
+     Executes the test suite using `npm test`. The `CI: true` environment variable is set to ensure that Jest runs in CI mode, preventing accidental hangs during testing.
 
-1. Navigate to your app's dashboard on Heroku.
-2. Go to the **Settings** tab and click on **Reveal Config Vars**.
-3. Ensure the following configuration variables are set:
-   - `DATABASE_URL`: This will be automatically set after adding the Postgres add-on.
-   - `HEROKU_APP_NAME`: Set this manually to the name of your Heroku app.
-   - Other configuration variables that your app might require should be added here as needed.(WHITELISTED_IPS, etc)
+   - **Build the Project:**  
+     Executes `npm run build` to build the project. This step compiles the application and prepares it for deployment.
 
-#### Step 4: Add Heroku API Key and App Name to GitHub Secrets
+   - **Deploy to Heroku:**  
+     Uses the `akhileshns/heroku-deploy@v3.13.15` action to deploy the application to Heroku. The following parameters are used:
+     - `heroku_app_name`: The name of your Heroku app, retrieved from GitHub Secrets.
+     - `heroku_email`: Your Heroku account email, also retrieved from GitHub Secrets.
+     - `heroku_api_key`: Your Heroku API key, securely accessed from GitHub Secrets.
 
-1. Obtain your Heroku API key by visiting [Account Settings](https://dashboard.heroku.com/account) in Heroku.
-2. In your GitHub repository, go to **Settings** > **Secrets and variables** > **Actions**.
-3. Add the following secrets:
-   - Name: `HEROKU_API_KEY`
-     - Value: Your Heroku API key.
-   - Name: `HEROKU_APP_NAME`
-     - Value: Your Heroku app name.
+## Summary
+This workflow automates the critical steps of testing and deploying a Node.js application to Heroku, ensuring that your application is always up to date and functioning correctly after every push to the main branch. By leveraging GitHub Actions, you can maintain a streamlined development process and quickly respond to changes in your codebase.
 
 # Swagger Documentation
 
-For detailed API documentation and examples of how to interact with the endpoints, please refer to the Postman collection:
+For detailed API documentation and examples of how to interact with the endpoints, please refer to the Swagger collection:
 
 swagger Documentation Link
-https://documenter.getpostman.com/view/38816098/2sAXxS8XJR
+for local: http://localhost:4000/api-docs/#/Cars/get_api_cars 
