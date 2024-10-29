@@ -14,6 +14,7 @@ A comprehensive API project built with Node.js, Mongo, and featuring security im
     - [3. Set Up Environment Variables](#3-set-up-environment-variables)
   - [API Endpoints](#api-endpoints)
 - [Database diagram](#database-diagram)
+- [Backend Architecture](#backend-architecture)
 - [Security Implementations](#security-implementations)
     - [1. CORS](#1-cors)
     - [2. Rate Limiting](#2-rate-limiting)
@@ -90,7 +91,10 @@ npm run dev
 
 # Database diagram
 
-![alt text](https://res.cloudinary.com/babypicserver/image/upload/v1728769944/xhesdna1zpozboijyvyo.png)
+![alt text](https://res.cloudinary.com/dbuaprzc0/image/upload/v1730228440/car-brainaic/carbrainiac__car-brainaic_1730228436832.jpg)
+
+# Backend Architecture
+![alt text](https://res.cloudinary.com/dbuaprzc0/image/upload/v1730228440/car-brainaic/carbrainiac__car-brainaic_1730228436833.jpg)
 
 # Security Implementations
 
