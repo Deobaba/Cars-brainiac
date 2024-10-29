@@ -29,17 +29,9 @@ jobs:
       - name: Build the project
         run: npm run build # use the appropriate build command for your project
 
-      - name: Install Heroku CLI
-        run: curl https://cli-assets.heroku.com/install.sh | sh
-
       - name: Deploy to Heroku
-        if: success() # only deploy if tests pass
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-        run: |
-          echo "machine git.heroku.com" >> ~/.netrc
-          echo "  login $HEROKU_EMAIL" >> ~/.netrc
-          echo "  password $HEROKU_API_KEY" >> ~/.netrc
-          heroku git:remote -a $HEROKU_APP_NAME
-          git push heroku main
+        uses: akhileshns/heroku-deploy@v3.9.7
+        with:
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }} # the name of your Heroku app
+          heroku_email: ${{ secrets.HEROKU_EMAIL }} # your Heroku account email
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }} # your Heroku API key
