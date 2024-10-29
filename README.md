@@ -4,8 +4,8 @@ A comprehensive API project built with Node.js, Mongo, and featuring security im
 
 # deployed link 
 check backend service health (/)
--** render - https://cars-brainiac.onrender.com
--** heroku - https://carbrainiac-5e171b67476a.herokuapp.com (might be down)
+-**render** - https://cars-brainiac.onrender.com
+-**heroku** - https://carbrainiac-5e171b67476a.herokuapp.com (might be down)
 
 # Table of Contents
 
@@ -108,7 +108,7 @@ npm run test
 ![alt text](https://res.cloudinary.com/dbuaprzc0/image/upload/v1730228440/car-brainaic/carbrainiac__car-brainaic_1730228436832.jpg)
 
 # Backend Architecture
-![alt text](https://res.cloudinary.com/dbuaprzc0/image/upload/v1730228440/car-brainaic/carbrainiac__car-brainaic_1730228436833.jpg)
+![alt text](https://res.cloudinary.com/dlbwktrdc/image/upload/v1730237762/car-brainaic/carbrainiac__car-brainaic_1730237761369.jpg)
 
 # Security Implementations
 
