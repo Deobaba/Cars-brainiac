@@ -30,7 +30,7 @@ jobs:
         run: npm run build # use the appropriate build command for your project
 
       - name: Deploy to Heroku
-        uses: akhileshns/heroku-deploy@v3.9.7
+        uses: akhileshns/heroku-deploy@v3.13.15
         with:
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }} # the name of your Heroku app
           heroku_email: ${{ secrets.HEROKU_EMAIL }} # your Heroku account email
