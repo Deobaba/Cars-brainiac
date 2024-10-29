@@ -38,20 +38,27 @@ describe('CarRepository', () => {
                 description: 'Test car',
                 pictures: ['test.jpg']
             };
-
-            // Mock `CarModel` to return a new instance that includes `save` method
-            const saveMock = jest.fn().mockResolvedValue(mockCar);
-            (CarModel as unknown as jest.Mock).mockImplementation(() => ({
+        
+            // Create a separate mock instance
+            const mockCarInstance = {
                 ...mockCar,
-                save: saveMock,
+                _id: new Types.ObjectId() // Add _id to the mock instance
+            };
+        
+            const saveMock = jest.fn().mockResolvedValue(mockCarInstance);
+        
+            // Implement the mock to return an object with all properties
+            (CarModel as unknown as jest.Mock).mockImplementation(() => ({
+                ...mockCarInstance, // Spread properties
+                save: saveMock
             }));
-
+        
             const result = await CarRepository.createCar(mockCar as ICar);
-
-            expect(result).toMatchObject(mockCar); // Comparing the actual result to mockCar
+            expect(result).toMatchObject(mockCarInstance);
             expect(CarModel).toHaveBeenCalledWith(mockCar);
             expect(saveMock).toHaveBeenCalled();
         });
+        
 
         it('should throw error when car creation fails', async () => {
             const mockCar: PartialICar = {
@@ -87,7 +94,8 @@ describe('CarRepository', () => {
 
             const skipMock = jest.fn().mockResolvedValue(mockCars);
             const limitMock = jest.fn().mockReturnValue({ skip: skipMock });
-            const findMock = jest.fn().mockReturnValue({ limit: limitMock });
+            const sortMock = jest.fn().mockReturnValue({ limit: limitMock });
+            const findMock = jest.fn().mockReturnValue({ sort: sortMock });
             const countDocumentsMock = jest.fn().mockResolvedValue(2);
 
             (CarModel.find as unknown as jest.Mock) = findMock;
@@ -98,11 +106,36 @@ describe('CarRepository', () => {
             expect(result).toEqual({ totalCount: 2, data: mockCars });
             expect(countDocumentsMock).toHaveBeenCalled();
             expect(findMock).toHaveBeenCalled();
+            expect(sortMock).toHaveBeenCalled();
             expect(limitMock).toHaveBeenCalledWith(10);
             expect(skipMock).toHaveBeenCalledWith(0);
         });
 
+        it('should apply filters correctly', async () => {
+            const filters = {
+                make: 'Toyota',
+                year: { min: 2018, max: 2022 },
+                price: { min: 20000, max: 30000 },
+                mileage: { min: 0, max: 50000 },
+                availability: true
+            };
+
+            const skipMock = jest.fn().mockResolvedValue([]);
+            const limitMock = jest.fn().mockReturnValue({ skip: skipMock });
+            const sortMock = jest.fn().mockReturnValue({ limit: limitMock });
+            const findMock = jest.fn().mockReturnValue({ sort: sortMock });
+            const countDocumentsMock = jest.fn().mockResolvedValue(1);
+
+            (CarModel.find as unknown as jest.Mock) = findMock;
+            (CarModel.countDocuments as unknown as jest.Mock) = countDocumentsMock;
+
+            await CarRepository.getAllCars(filters);
+
+            // Verify specific values of the filter
+            const [[actualFilter]] = findMock.mock.calls;
+            expect(actualFilter.make.toLowerCase()).toBe(filters.make.toLowerCase());
         });
+    });
 
     describe('getCarById', () => {
         it('should get car by id successfully', async () => {

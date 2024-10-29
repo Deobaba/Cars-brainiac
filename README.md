@@ -25,7 +25,7 @@ Ensure that the following software is installed and running on your machine:
 
 - **Node.js**: v16+
 - **MongoDB**: Ensure MongoDB is installed and running.
-- **Docker**: (Optional but recommended for deployment)
+
 
 ### Step-by-Step Guide
 
@@ -66,21 +66,6 @@ CLOUDINARY_CLOUD_API_SECRET=
 npm run dev
 
 ```
-
-## Build and Run Docker Image Locally
-
-### Prerequisites
-
-- Ensure you have [Docker](https://www.docker.com/get-started) installed on your machine.
-
-### Steps
-
-1. **Clone the Repository**
-
-   ```bash
-   git clone https://github.com/yourusername/your-repo.git
-   cd your-repo
-   ```
 
 ## API Endpoints
 
@@ -161,14 +146,6 @@ The deployment workflow performs the following steps:
 2. Create a new application by clicking the "New" button and selecting "Create new app".
 3. Make note of the app name (you'll need it later).
 
-#### Step 2: Add PostgreSQL and Redis Add-ons
-
-1. Log in to Heroku and navigate to your app’s dashboard.
-2. Go to the **Resources** tab and find the **Add-ons** section.
-3. Add the following add-ons:
-   - **PostgreSQL:** Search for `Heroku Postgres` and select a plan (e.g., Essential 0).
-   - **Redis:** Search for `Heroku Key-Value Store` and select a plan (e.g., Mini).
-4. The environment variables `DATABASE_URL` (for PostgreSQL) and `REDIS_URL` (for Redis) will be automatically added to your Heroku app's configuration.
 
 #### Step 3: Add Config Vars to Heroku
 
@@ -176,7 +153,6 @@ The deployment workflow performs the following steps:
 2. Go to the **Settings** tab and click on **Reveal Config Vars**.
 3. Ensure the following configuration variables are set:
    - `DATABASE_URL`: This will be automatically set after adding the Postgres add-on.
-   - `REDIS_URL`: This will be automatically set after adding the Redis add-on.
    - `HEROKU_APP_NAME`: Set this manually to the name of your Heroku app.
    - Other configuration variables that your app might require should be added here as needed.(WHITELISTED_IPS, etc)
 
@@ -190,9 +166,9 @@ The deployment workflow performs the following steps:
    - Name: `HEROKU_APP_NAME`
      - Value: Your Heroku app name.
 
-# Postman Documentation
+# Swagger Documentation
 
 For detailed API documentation and examples of how to interact with the endpoints, please refer to the Postman collection:
 
-Postman Documentation Link
+swagger Documentation Link
 https://documenter.getpostman.com/view/38816098/2sAXxS8XJR
