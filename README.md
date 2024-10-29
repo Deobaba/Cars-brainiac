@@ -64,7 +64,7 @@ APP_ENV=development
 PORT=4000
 MONGO_URL_DEV=mongodb://localhost:27017/cars
 MONGO_URL_PROD=
-ALLOWED_ORIGINS=deobaba.com,facebook.com,http://localhost:4000
+ALLOWED_ORIGINS=http://localhost:4000,https://cars-brainiac.onrender.com
 JWT_SECRET=<your_jwt_secret e.g >
 TOKEN_EXPIRES=30d
 CLOUDINARY_CLOUD_NAME=
@@ -75,8 +75,16 @@ CLOUDINARY_CLOUD_API_SECRET=
 1. Start the Server
 
 ```
-npm run dev
+npm run dev [development]
 
+or
+
+npm run start [production]
+
+```
+2. To run unit test 
+```
+npm run test
 ```
 
 ## API Endpoints
@@ -100,7 +108,7 @@ npm run dev
 
 ### 1. CORS
 
-The API is restricted to specific domains via CORS middleware. The allowed origins can be configured through environment variables for flexibility.
+The API is restricted to specific domains via CORS middleware. The allowed origins can be configured through environment variables for flexibility.(add your local url or deployed url )
 
 ### 2. Rate Limiting
 
@@ -121,9 +129,8 @@ This project is configured to automatically deploy to [Heroku](https://www.herok
 ## Prerequisites
 
 1. A Heroku account and a Heroku application.
-2. Docker installed locally for testing and development (optional).
-3. A GitHub repository for the project.
-4. PostgreSQL and Redis set up on your Heroku app.
+2. A GitHub repository for the project.
+
 
 ## Deployment Workflow
 
@@ -176,4 +183,5 @@ This workflow automates the critical steps of testing and deploying a Node.js ap
 For detailed API documentation and examples of how to interact with the endpoints, please refer to the Swagger collection:
 
 swagger Documentation Link
-for local: http://localhost:4000/api-docs/#/Cars/get_api_cars 
+for local: http://localhost:{PORT}/api-docs/#/Cars/get_api_cars example (http://localhost:4000/api-docs/#/Cars/get_api_cars )
+for deployed: https://cars-brainiac.onrender.com/api-docs/#/
