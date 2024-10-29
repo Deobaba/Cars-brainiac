@@ -1,4 +1,5 @@
 import swaggerJsDoc, { Options } from 'swagger-jsdoc';
+import { ENVIRONMENT } from '../config/env';
 
 const options: Options = {
     definition: {
@@ -20,7 +21,7 @@ const options: Options = {
       security: [{ bearerAuth: [] }],
       servers: [
         {
-          url: 'http://localhost:4000',
+          url: ENVIRONMENT.SWAGGERLINK,
         },
       ],
     },

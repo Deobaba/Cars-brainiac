@@ -21,7 +21,8 @@ export interface IEnvironment {
       }
       ALLOWED_ORIGINS:  any;
       JWT_SECRET:string;
-      TOKEN_EXPIRES:string
+      TOKEN_EXPIRES:string;
+      SWAGGERLINK:string
 }
 
 
