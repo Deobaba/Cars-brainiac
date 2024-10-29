@@ -3,9 +3,9 @@
 A comprehensive API project built with Node.js, Mongo, and featuring security implementations, rate-limiting,  and robust error handling. The project is also set up for automated CI/CD deployment using GitHub Actions.
 
 # deployed link 
-check service health (/)
-render - https://cars-brainiac.onrender.com
-heroku - https://carbrainiac-5e171b67476a.herokuapp.com (might be down)
+check backend service health (/)
+-** render - https://cars-brainiac.onrender.com
+-** heroku - https://carbrainiac-5e171b67476a.herokuapp.com (might be down)
 
 # Table of Contents
 
